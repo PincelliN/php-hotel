@@ -45,14 +45,25 @@
 
 foreach($hotels as $hotel){
     if($hotel['parking'] == true){
-        $hotelpark[]=$hotel;
+        $hotel_park[]=$hotel;
     }if($hotel['vote']>=$vote_hotel){
-        $hotelvote[]=$hotel;
+        $hotel_vote[]=$hotel;
     }if($hotel['parking'] == true && $hotel['vote']>=$vote_hotel){
         $hotel_vote_park[]=$hotel;
     }
 };
     
+if ($park_hotel&&$vote_hotel!=0) {
+    $hotel_array= $hotel_vote_park;
+} elseif ($park_hotel) {
+    $hotel_array=$hotel_park;
+}elseif ($vote_hotel!=0) {
+   $hotel_array=$hotel_vote;
+}else{
+$hotel_array=$hotels;
+}
+
+
 ?>
 
 
@@ -112,8 +123,7 @@ foreach($hotels as $hotel){
             </thead>
             <tbody>
                 <?php
-                if ($park_hotel&&$vote_hotel!=0) {
-                    foreach($hotel_vote_park as $hotel){
+                    foreach($hotel_array as $hotel){
                         echo '<tr>';
                 echo '<th scope="row">' . $hotel['name'] . '</th>';
                 echo '<td>' . $hotel['description'] . '</td>';
@@ -121,37 +131,7 @@ foreach($hotels as $hotel){
                 echo '<td>' . $hotel['vote'] . '</td>';
                 echo '<td>' . $hotel['distance_to_center'] . '</td>';
                 echo '</tr>';
-                    }
-                }
-                elseif ($park_hotel) {
-                    foreach($hotelpark as $hotel){
-                   echo '<tr>';
-                echo '<th scope="row">' . $hotel['name'] . '</th>';
-                echo '<td>' . $hotel['description'] . '</td>';
-                echo '<td>' . ($hotel['parking'] ? 'Si' : 'No') . '</td>';
-                echo '<td>' . $hotel['vote'] . '</td>';
-                echo '<td>' . $hotel['distance_to_center'] . '</td>';
-                echo '</tr>';
-                }
-            }elseif($vote_hotel!=0){
-                foreach( $hotelvote as $hotel){
-                 echo '<tr>';
-                echo '<th scope="row">' . $hotel['name'] . '</th>';
-                echo '<td>' . $hotel['description'] . '</td>';
-                echo '<td>' . ($hotel['parking'] ? 'Si' : 'No') . '</td>';
-                echo '<td>' . $hotel['vote'] . '</td>';
-                echo '<td>' . $hotel['distance_to_center'] . '</td>';
-                echo '</tr>';}
-                }else{
-                foreach($hotels as $hotel){
-                  echo '<tr>';
-                echo '<th scope="row">' . $hotel['name'] . '</th>';
-                echo '<td>' . $hotel['description'] . '</td>';
-                echo '<td>' . ($hotel['parking'] ? 'Si' : 'No') . '</td>';
-                echo '<td>' . $hotel['vote'] . '</td>';
-                echo '<td>' . $hotel['distance_to_center'] . '</td>';
-                echo '</tr>';
-                }} ;
+                    };
                 ?>
             </tbody>
 
