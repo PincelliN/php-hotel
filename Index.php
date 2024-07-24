@@ -1,7 +1,7 @@
 <?php
 
-    $park_hotel=$_GET['parkhotel'];
-     $vote_hotel=$_GET['votehotel'];
+    $park_hotel = isset($_GET['parkhotel']) ? $_GET['parkhotel'] : null;
+    $vote_hotel = isset($_GET['votehotel']) ? $_GET['votehotel'] : 0;
 
     $hotels = [
 
@@ -46,26 +46,13 @@
 foreach($hotels as $hotel){
     if($hotel['parking'] == true){
         $hotelpark[]=$hotel;
-    }
-};
-
-foreach($hotels as $hotel){
-    if($hotel['vote']>$vote_hotel){
+    }if($hotel['vote']>=$vote_hotel){
         $hotelvote[]=$hotel;
-    }
-};
-
-foreach($hotelpark as $hotel){
-    if($hotel['vote']>$vote_hotel){
+    }if($hotel['parking'] == true && $hotel['vote']>=$vote_hotel){
         $hotel_vote_park[]=$hotel;
     }
 };
-
-var_dump($hotelpark);
-var_dump($hotelvote);
-var_dump($hotel_vote_park);
- var_dump($park_hotel);
-var_dump($vote_hotel);    
+    
 ?>
 
 
