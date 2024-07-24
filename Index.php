@@ -77,7 +77,11 @@
                 <tr>
                     <th scope="row"><?php echo $hotel['name']?></th>
                     <td><?php  echo $hotel['description'] ?></td>
-                    <td><?php  echo $hotel['parking'] ?></td>
+                    <td><?php  if($hotel['parking']){
+                        echo 'Si';
+                    }else{
+                        echo 'No';
+                    }?></td>
                     <td><?php  echo $hotel['vote'] ?></td>
                     <td><?php  echo $hotel['distance_to_center'] ?></td>
                 </tr>
